@@ -926,6 +926,11 @@ on MinGW. See https://bugs.webkit.org/show_bug.cgi?id=29268 */
 #define ENABLE_REPAINT_THROTTLING 0
 #endif
 
+/* Disable JIT on x32 */
+#if CPU(X32)
+#define ENABLE_JIT 0
+#endif
+
 #if !defined(ENABLE_JIT)
 
 /* The JIT is tested & working on x86_64 Mac */
@@ -957,7 +962,7 @@ on MinGW. See https://bugs.webkit.org/show_bug.cgi?id=29268 */
 #elif CPU(X86) && OS(LINUX) && GCC_VERSION >= 40100
     #define ENABLE_JIT 1
     #define WTF_USE_JIT_STUB_ARGUMENT_VA_LIST 1
-#elif CPU(X86_64) && !CPU(X32) && OS(LINUX) && GCC_VERSION >= 40100
+#elif CPU(X86_64) && OS(LINUX) && GCC_VERSION >= 40100
     #define ENABLE_JIT 1
 #elif CPU(ARM_TRADITIONAL) && OS(LINUX)
     #define ENABLE_JIT 1
